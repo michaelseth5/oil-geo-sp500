@@ -1237,3 +1237,7 @@ date,oil_sentiment,geo_risk,market_sentiment,fed_signal,confidence,summary
 2026-02-02,1,1,-1,1,0.7,"Rising oil prices and heightened geopolitical tensions drove a risk-off tone in markets, despite hawkish Fed signals and strong economic data."
 2026-02-16,1,1,-1,0,0.7,"Rising geopolitical tensions and supply concerns drove oil prices higher, while the S&P 500 saw a risk-off tone due to global instability and mixed economic data."
 2026-02-23,1,1,-1,1,0.7,"Rising oil prices and geopolitical tensions dominated the week, while the S&P 500 experienced a risk-off tone and the Federal Reserve signaled a hawkish stance."
+2026-03-02,1,1,-1,-1,0.7,"Rising oil prices driven by OPEC supply cuts and heightened geopolitical tensions in the Middle East led to a risk-off tone in the S&P 500, while dovish Federal Reserve signals eased inflation concerns."
+2026-03-09,1,1,-1,1,0.7,"Rising oil prices and elevated geopolitical tensions drove risk-off sentiment in the S&P 500, while the Federal Reserve signaled a hawkish stance on inflation."
+2026-03-16,1,1,-1,1,0.7,"Rising oil prices driven by OPEC supply cuts and heightened geopolitical tensions in the Middle East led to a risk-off tone in the S&P 500, while hawkish Federal Reserve signals reinforced inflation concerns."
+2026-03-23,1,1,-1,-1,0.7,"Rising oil prices and heightened geopolitical tensions drove a risk-off tone in markets, while the Federal Reserve signaled a dovish stance amidst easing inflation concerns."
