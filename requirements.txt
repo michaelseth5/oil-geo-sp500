@@ -1,0 +1,26 @@
+# -----------------------------------------------------------------------------
+# oil-geo-sp500 — full environment (Streamlit app + training + data scripts)
+# Install: pip install -r requirements.txt
+# Python: 3.11 recommended (see runtime.txt for Streamlit Cloud)
+# -----------------------------------------------------------------------------
+
+# --- Streamlit UI (GeoOil Intel, Monday Alpha, suite entry) ---
+streamlit>=1.28.0
+
+# --- Data & visualization ---
+numpy>=1.24.0
+pandas>=2.0.0
+plotly>=5.18.0
+
+# --- ML stack (saved XGBoost + sklearn bundles in models/) ---
+xgboost>=2.0.0
+scikit-learn>=1.4.0
+
+# --- Market data (src/data_pull.py) ---
+yfinance>=0.2.40
+
+# --- OpenRouter API client (src/news_agent.py uses `from openai import OpenAI`) ---
+openai>=1.30.0
+
+# --- Optional: uncomment if you add Anthropic Claude calls ---
+# anthropic>=0.25.0

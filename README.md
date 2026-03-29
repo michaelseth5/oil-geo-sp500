@@ -1,10 +1,22 @@
 # Oil · Geo · S&P 500 — Research Stack
 
-## Oil-Geo Research Suite (Streamlit)
+## Environment
 
-Single entry point for two apps with shared Webull-inspired dark styling:
+From the repo root (recommended: use a virtual environment):
 
 ```bash
+pip install -r requirements.txt
+```
+
+Python **3.11** matches `runtime.txt` (Streamlit Cloud) and avoids most wheel edge cases.
+
+## Oil-Geo Research Suite (Streamlit)
+
+Single entry point for two apps with shared corporate light styling:
+
+```bash
+streamlit run app.py
+# or
 streamlit run src/app.py
 ```
 
@@ -44,3 +56,25 @@ streamlit run src/dashboard.py
 - Regressor: `python src/train_regressor.py`
 - News LLM: `python src/news_agent.py <YYYY-MM-DD>`
 - CLI prediction: `python src/predict_monday.py`
+
+## Deploy (Streamlit Community Cloud)
+
+1. **Push this repo to GitHub** (Streamlit Cloud deploys from a remote Git host, not from your laptop alone).
+2. In [Streamlit Community Cloud](https://share.streamlit.io/), sign in and **connect your GitHub account** if you see “code is not connected to a GitHub repository” (or similar): **Settings → Linked accounts → Connect GitHub**, and authorize the org/repo access the app needs.
+3. **New app** → pick the repo → choose the correct **branch** (`main` vs `master` must match what you use on GitHub).
+4. **Main file** (entry point), either:
+   - **`app.py`** at the repo root (loads `src/app.py` for you), or
+   - **`src/app.py`** directly.
+5. **Dependencies**: `requirements.txt` at the repo root (includes `streamlit`, `pandas`, `plotly`, `xgboost`, `yfinance`, `openai`, etc.).
+6. **Python version**: `runtime.txt` pins **Python 3.11** (Streamlit Cloud reads this from the repo root).
+7. **API keys**: the hosted **GeoOil + Monday Alpha** UI does not require keys. The **news backfill** (`src/news_agent.py`) calls **OpenRouter** via the **`openai`** package and expects **`OPENROUTER_API_KEY`** in `.env` or Cloud Secrets. See `.streamlit/secrets.toml.example`.
+
+Local runs (equivalent):
+
+```bash
+streamlit run app.py
+# or
+streamlit run src/app.py
+```
+
+If deployment still fails, open **Manage app → Logs** and check for missing files (`data/raw/*.csv`, `models/*.pkl`) or import errors.

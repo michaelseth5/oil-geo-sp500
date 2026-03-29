@@ -26,19 +26,22 @@ from predict_monday import (  # noqa: E402
 )
 
 # ---------------------------------------------------------------------------
-# Design tokens — Webull × Chime (semantic colors only)
+# Design tokens — corporate light + JPMorgan Chase blue (#003087)
 # ---------------------------------------------------------------------------
-C_BG = "#1a1d27"
-C_PANEL = "#131722"
-C_BORDER = "#2a2d3a"
-C_POS = "#02c076"
-C_NEG = "#f6465d"
-C_INFO = "#00bcd4"
-C_WARN = "#f0b90b"
-C_MUTED = "#787b86"
-C_TEXT = "#d1d4dc"
-C_NEUTRAL_CELL = "#5a6578"
-C_TITLE = "#ffffff"
+C_CHASE = "#003087"
+C_BG = "#f0f2f5"
+C_PANEL = "#ffffff"
+C_BORDER = "rgba(0, 48, 135, 0.22)"
+C_BORDER_STRONG = "#003087"
+C_POS = "#0d7a52"
+C_NEG = "#b91c1c"
+C_INFO = "#005a9c"
+C_WARN = "#b45309"
+C_MUTED = "#5c6370"
+C_TEXT = "#1a1d21"
+C_NEUTRAL_CELL = "#9ca3af"
+C_TITLE = "#003087"
+C_PLOT_FACE = "#f5f7fa"
 
 # Vertical rhythm (px-equivalent via rem/spacing)
 SPACE_SECTION = "1.35rem"
@@ -48,6 +51,7 @@ SPACE_GRID = "1.25rem"
 # Plotly shared geometry
 PLOT_MARGIN_DEFAULT = dict(l=44, r=24, t=36, b=44)
 PLOT_FONT = dict(family="Arial, Helvetica, sans-serif", color=C_TEXT, size=12)
+PLOT_TEMPLATE = "plotly_white"
 
 # Chart heights (explicit — prevents squished layouts)
 H_DONUT = 360
@@ -92,9 +96,9 @@ DISPLAY_MODEL_NAME = "llama-3.3-70b-versatile"
 def _layout_base(*, height: int, margin: dict | None = None) -> dict:
     m = {**PLOT_MARGIN_DEFAULT, **(margin or {})}
     return dict(
-        template="plotly_dark",
+        template=PLOT_TEMPLATE,
         paper_bgcolor=C_PANEL,
-        plot_bgcolor=C_BG,
+        plot_bgcolor=C_PLOT_FACE,
         font=PLOT_FONT,
         margin=m,
         height=height,
@@ -131,7 +135,7 @@ def _global_css() -> str:
       .block-container {{ padding-top: 1.25rem; max-width: 1400px; }}
 
       .ma-h1 {{
-        color: {C_TITLE};
+        color: {C_CHASE};
         font-size: 1.65rem;
         font-weight: 700;
         letter-spacing: -0.03em;
@@ -146,7 +150,7 @@ def _global_css() -> str:
         letter-spacing: 0.01em;
       }}
       .ma-section {{
-        color: {C_MUTED};
+        color: {C_CHASE};
         font-size: 0.7rem;
         text-transform: uppercase;
         letter-spacing: 0.1em;
@@ -155,19 +159,20 @@ def _global_css() -> str:
       }}
       .ma-rule {{
         height: 1px;
-        background: {C_BORDER};
+        background: {C_BORDER_STRONG};
+        opacity: 0.35;
         margin-bottom: 0.85rem;
-        opacity: 0.85;
       }}
       .ma-spacer {{ height: 1.15rem; }}
 
       .kpi-wrap {{
         background: {C_PANEL};
         border: 1px solid {C_BORDER};
+        border-top: 2px solid {C_CHASE};
         border-radius: 10px;
         padding: 1rem 1.15rem;
         min-height: 96px;
-        box-shadow: 0 1px 0 rgba(255,255,255,0.04) inset, 0 8px 24px rgba(0,0,0,0.22);
+        box-shadow: 0 1px 3px rgba(0, 48, 135, 0.06);
         display: flex;
         flex-direction: column;
         justify-content: space-between;
@@ -175,8 +180,8 @@ def _global_css() -> str:
         transition: border-color 0.15s ease, box-shadow 0.15s ease;
       }}
       .kpi-wrap:hover {{
-        border-color: rgba(0, 188, 212, 0.35);
-        box-shadow: 0 1px 0 rgba(255,255,255,0.05) inset, 0 10px 28px rgba(0,0,0,0.28);
+        border-color: rgba(0, 48, 135, 0.35);
+        box-shadow: 0 4px 12px rgba(0, 48, 135, 0.1);
       }}
       .kpi-label {{
         color: {C_MUTED};
@@ -198,10 +203,10 @@ def _global_css() -> str:
       .news-card {{
         background: {C_PANEL};
         border: 1px solid {C_BORDER};
-        border-left: 3px solid {C_WARN};
+        border-left: 4px solid {C_CHASE};
         border-radius: 10px;
         padding: 1.35rem 1.5rem;
-        color: {C_MUTED};
+        color: {C_TEXT};
         font-style: italic;
         font-size: 0.98rem;
         line-height: 1.65;
@@ -218,12 +223,12 @@ def _global_css() -> str:
         font-size: 0.82rem;
         border: 1px solid transparent;
       }}
-      .pill-up {{ background: rgba(2, 192, 118, 0.12); color: {C_POS}; border-color: rgba(2, 192, 118, 0.25); }}
-      .pill-down {{ background: rgba(246, 70, 93, 0.1); color: {C_NEG}; border-color: rgba(246, 70, 93, 0.22); }}
-      .pill-zero {{ background: rgba(120, 123, 134, 0.12); color: {C_MUTED}; border-color: {C_BORDER}; }}
+      .pill-up {{ background: rgba(13, 122, 82, 0.1); color: {C_POS}; border-color: rgba(13, 122, 82, 0.3); }}
+      .pill-down {{ background: rgba(185, 28, 28, 0.08); color: {C_NEG}; border-color: rgba(185, 28, 28, 0.25); }}
+      .pill-zero {{ background: rgba(92, 99, 112, 0.08); color: {C_MUTED}; border-color: {C_BORDER}; }}
 
       .ma-news-head {{
-        color: {C_TEXT};
+        color: {C_CHASE};
         font-size: 0.95rem;
         font-weight: 600;
         letter-spacing: -0.01em;
@@ -239,20 +244,21 @@ def _global_css() -> str:
       }}
       .meta-k {{ color: {C_MUTED}; }}
       .meta-v {{ color: {C_TEXT}; }}
-      .meta-v-cyan {{ color: {C_INFO}; font-weight: 600; }}
+      .meta-v-cyan {{ color: {C_CHASE}; font-weight: 600; }}
 
       div[data-testid="stVerticalBlock"] > div button[kind="secondary"] {{
         background: {C_PANEL} !important;
-        color: {C_TEXT} !important;
-        border: 1px solid {C_BORDER} !important;
+        color: {C_CHASE} !important;
+        border: 1px solid {C_CHASE} !important;
         font-weight: 600 !important;
         font-size: 0.85rem !important;
         padding: 0.45rem 1.1rem !important;
         border-radius: 8px !important;
       }}
       div[data-testid="stVerticalBlock"] > div button[kind="secondary"]:hover {{
-        border-color: rgba(0, 188, 212, 0.45) !important;
-        color: {C_INFO} !important;
+        background: rgba(0, 48, 135, 0.06) !important;
+        border-color: #002266 !important;
+        color: #002266 !important;
       }}
     </style>
     """
@@ -267,8 +273,8 @@ def _fig_donut() -> go.Figure:
                 hole=0.62,
                 marker=dict(
                     colors=[
-                        "rgba(2, 192, 118, 0.92)",
-                        "rgba(246, 70, 93, 0.88)",
+                        "rgba(13, 122, 82, 0.9)",
+                        "rgba(185, 28, 28, 0.88)",
                     ],
                     line=dict(color=C_PANEL, width=2),
                 ),
@@ -294,7 +300,7 @@ def _fig_donut() -> go.Figure:
         showarrow=False,
     )
     fig.add_annotation(
-        text=f"<span style='font-size:11px;color:{C_NEG};font-weight:500'>Below threshold</span>",
+        text=f"<span style='font-size:11px;color:{C_NEG};font-weight:600'>Below threshold</span>",
         x=0.5,
         y=0.36,
         xref="paper",
@@ -379,7 +385,7 @@ def _fig_confidence_meter() -> go.Figure:
         y0=0,
         y1=1,
         yref="paper",
-        line=dict(color="#ffffff", width=2),
+        line=dict(color=C_CHASE, width=2),
         layer="above",
     )
     fig.add_shape(
@@ -389,7 +395,7 @@ def _fig_confidence_meter() -> go.Figure:
         y0=0,
         y1=1,
         yref="paper",
-        line=dict(color=C_WARN, width=2, dash="4 3"),
+        line=dict(color="rgba(0, 48, 135, 0.55)", width=2, dash="5 4"),
         layer="above",
     )
     fig.add_annotation(
@@ -406,13 +412,13 @@ def _fig_confidence_meter() -> go.Figure:
         yref="paper",
         text=f"Threshold · {tx:.0f}%",
         showarrow=False,
-        font=dict(color=C_WARN, size=11, family=PLOT_FONT["family"]),
+        font=dict(color=C_CHASE, size=11, family=PLOT_FONT["family"]),
     )
     fig.update_xaxes(
         range=[0, 100],
         dtick=10,
         tickfont=dict(color=C_MUTED, size=11),
-        gridcolor="rgba(42,45,58,0.5)",
+        gridcolor="rgba(0, 48, 135, 0.12)",
         showgrid=True,
         title="",
     )
@@ -430,9 +436,9 @@ def _fig_confidence_meter() -> go.Figure:
 
 
 def _fi_gradient_color(t: float) -> str:
-    """Low → high: muted cyan → muted green (slightly desaturated for less noise)."""
-    lo = np.array([26, 152, 172], dtype=float)
-    hi = np.array([24, 168, 108], dtype=float)
+    """Low → high: light blue → Chase blue."""
+    lo = np.array([184, 212, 240], dtype=float)
+    hi = np.array([0, 48, 135], dtype=float)
     rgb = lo + t * (hi - lo)
     return f"rgb({int(rgb[0])},{int(rgb[1])},{int(rgb[2])})"
 
@@ -464,7 +470,7 @@ def _fig_feature_importance() -> go.Figure:
     )
     fig.update_xaxes(
         title=dict(text="Importance (%)", font=dict(color=C_MUTED, size=11)),
-        gridcolor="rgba(42,45,58,0.45)",
+        gridcolor="rgba(0, 48, 135, 0.12)",
         zeroline=False,
         tickfont=dict(color=C_MUTED, size=10),
     )
@@ -593,7 +599,7 @@ def _fig_pred_vs_actual(
             y=pred_arr,
             name="Predicted",
             mode="lines",
-            line=dict(color="rgba(240, 185, 11, 0.22)", width=7),
+            line=dict(color="rgba(0, 48, 135, 0.15)", width=7),
             hoverinfo="skip",
             showlegend=False,
         )
@@ -604,8 +610,8 @@ def _fig_pred_vs_actual(
             y=pred_arr,
             name="Predicted",
             mode="lines+markers",
-            line=dict(color=C_WARN, width=2.5),
-            marker=dict(size=4, color=C_WARN, line=dict(width=0)),
+            line=dict(color=C_CHASE, width=2.5),
+            marker=dict(size=4, color=C_CHASE, line=dict(width=0)),
             hovertemplate="%{x|%Y-%m-%d}<br>pred %{y:.2f}%<extra></extra>",
         )
     )
@@ -620,21 +626,21 @@ def _fig_pred_vs_actual(
                     size=9,
                     color="rgba(0,0,0,0)",
                     symbol="circle",
-                    line=dict(width=2, color=C_INFO),
+                    line=dict(width=2, color=C_CHASE),
                 ),
                 hovertemplate="%{x|%Y-%m-%d}<br>high confidence · pred %{y:.2f}%<extra></extra>",
             )
         )
     fig.update_xaxes(
         tickangle=32,
-        gridcolor="rgba(42,45,58,0.4)",
+        gridcolor="rgba(0, 48, 135, 0.1)",
         tickfont=dict(color=C_MUTED, size=10),
         showline=False,
     )
     fig.update_yaxes(
         title=dict(text="Return (%)", font=dict(color=C_MUTED, size=11)),
-        gridcolor="rgba(42,45,58,0.4)",
-        zerolinecolor=C_BORDER,
+        gridcolor="rgba(0, 48, 135, 0.1)",
+        zerolinecolor=C_BORDER_STRONG,
         showline=False,
     )
     fig.update_layout(
@@ -669,7 +675,7 @@ def _gauge_spec(color: str, *, is_frac: bool = False) -> dict:
     return dict(
         axis=axis,
         bar=dict(color=color, thickness=0.55, line=dict(width=0)),
-        bgcolor=C_BG,
+        bgcolor=C_PLOT_FACE,
         borderwidth=0,
     )
 
@@ -718,9 +724,9 @@ def _gauges_row() -> go.Figure:
         go.Indicator(
             mode="gauge+number",
             value=0.66,
-            number=dict(valueformat=".3f", font=dict(color=C_WARN, size=20)),
+            number=dict(valueformat=".3f", font=dict(color=C_CHASE, size=20)),
             title=dict(text="Threshold", font=dict(size=11, color=C_MUTED)),
-            gauge=_gauge_spec(C_WARN, is_frac=True),
+            gauge=_gauge_spec(C_CHASE, is_frac=True),
         ),
         row=1,
         col=4,
