@@ -13,7 +13,6 @@ import streamlit as st
 
 _SRC = Path(__file__).resolve().parent
 
-# JPMorgan Chase blue + ~80% white (light corporate shell)
 _CHASE = "#003087"
 _BG = "#f0f2f5"
 _PANEL = "#ffffff"
