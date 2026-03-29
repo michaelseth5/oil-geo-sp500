@@ -1,5 +1,14 @@
 # Oil · Geo · S&P 500 — Research Stack
 
+<img width="1126" height="515" alt="GWe-Stock Timeline" src="https://github.com/user-attachments/assets/bc4bd8a6-9d4b-4a69-a960-a6604235ef78" />
+<img width="473" height="599" alt="BackTest Summary" src="https://github.com/user-attachments/assets/777bde9e-b122-4687-af03-659c5545b7d3" />
+
+
+
+
+
+
+
 ## Environment
 
 From the repo root (recommended: use a virtual environment):
