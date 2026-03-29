@@ -3,6 +3,13 @@
 <img width="1126" height="515" alt="GWe-Stock Timeline" src="https://github.com/user-attachments/assets/bc4bd8a6-9d4b-4a69-a960-a6604235ef78" />
 <div>
 
+<div style="height: 20px;"></div>
+<div style="height: 20px;"></div>
+<div style="height: 20px;"></div>
+<div style="height: 20px;"></div>
+<div style="height: 20px;"></div>
+<div style="height: 20px;"></div>
+
 
 
 
