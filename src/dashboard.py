@@ -751,7 +751,12 @@ def _load_pred_actual_series(
         return None
     sub = df_t.iloc[-n:].copy()
     pb = _blend_proba_batch(cb, sub)
-    conf = pb.max(axis=1).values
+    prob_max = np.max(pb, axis=1)
+    if hasattr(prob_max, "values"):
+        conf = prob_max.values
+    else:
+        conf = np.asarray(prob_max)
+    conf = np.asarray(conf, dtype=float).ravel()
     thresh = float(cb.get("threshold", 0.66))
     reg = rb["model"]
     rcols = rb["feature_columns"]
