@@ -1,4 +1,4 @@
-# Geopolitical Market Analysis Meets XGBoost-Powered Monday Return Forecasting.
+#Oil Market Analysis & Its Effect On S&P 500 (XGBoost-Powered)
 
 <img width="1126" height="515" alt="GWe-Stock Timeline" src="https://github.com/user-attachments/assets/bc4bd8a6-9d4b-4a69-a960-a6604235ef78" />
 <div>
