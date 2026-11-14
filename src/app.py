@@ -84,6 +84,11 @@ pages = [
         title="Monday Alpha",
         icon="📈",
     ),
+    st.Page(
+        str(_SRC / "research_diagnostics.py"),
+        title="Research Diagnostics",
+        icon="🔬",
+    ),
 ]
 
 st.navigation(pages).run()
