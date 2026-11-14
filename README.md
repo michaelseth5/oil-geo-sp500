@@ -103,3 +103,16 @@ streamlit run src/app.py
 ```
 
 If deployment still fails, open **Manage app → Logs** and check for missing files (`data/raw/*.csv`, `models/*.pkl`) or import errors.
+
+
+## Research validation upgrade
+
+Run `python -m src.research_validation --output reports/walk_forward.json` and open **Research Diagnostics** in Streamlit. The new page reports point-in-time model configuration, expanding-window folds, selected prediction accuracy and coverage, feature PSI drift and source-file SHA-256 provenance. Tests: `python -m unittest discover -s tests -v`.
+
+**Label audit:** Existing `src/features.py` creates `target` as the direction of the trading day **after Monday**, usually Tuesday, using Monday-close data. This does **not** establish a tradable Monday-open forecast; renaming it would misrepresent the experiment. New validation preserves the existing label and states its timing explicitly.
+
+**Holdout integrity:** Existing `src/model.py` experimentally selects the best configuration on the 2024+ test set; that is research selection bias, not an untouched holdout. The new walk-forward script instead holds the blend at 58% XGBoost / 42% Random Forest, the threshold at 66%, and features/parameters fixed before testing. The reported 69% high-confidence accuracy is not independently reproduced by creating this script.
+
+**News provenance:** Existing historic LLM news signals lack verifiable article-level publication timestamps. The new audit rejects records published after the decision cutoff and does not treat existing backfilled signals as independently point-in-time verified. Live Llama inference remains in the existing news agent and requires an OpenRouter API key.
+
+**Interpretation:** Research-only. Confidence means maximum class probability, not calibrated certainty. Changing the threshold in the dashboard after viewing results is descriptive exploration, not a new out-of-sample test. PSI drift flags changes in empirical feature distributions; it is not proof of market causality. The suite includes provenance for dataset bytes, but real vendor-level source auditing requires trustworthy source records.
